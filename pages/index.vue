@@ -298,7 +298,7 @@ const scrollToBooking = () => {
 onMounted(() => {
   nextTick(() => {
     // Initialiser le calendrier inline
-    initInlineCalendar('cal-inline-widget', 'sophie-davesne', 'consultation')
+    initInlineCalendar('cal-inline-widget', 'paul-bugeon-el1oht')
   })
 })
 </script>
