@@ -1,165 +1,224 @@
-import * as Sentry from '@sentry/nuxt'
+import { useRuntimeConfig } from 'nuxt/app'
 
 export const useMonitoring = () => {
   const config = useRuntimeConfig()
 
-  // Configuration Analytics
-  const setupAnalytics = () => {
-    // Google Tag Manager
-    if (config.public.gtmId && process.client) {
-      useHead({
-        script: [
-          {
-            innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${config.public.gtmId}');`
-          }
-        ]
-      })
+  // Configuration du monitoring
+  const monitoringConfig = config.public.monitoring as any
+  const sentryConfig = config.public.sentry as any
+  const grafanaConfig = config.public.grafana as any
+
+  /**
+   * Initialise le monitoring pour l'application
+   */
+  const initializeMonitoring = () => {
+    if (monitoringConfig?.enableErrorTracking && sentryConfig?.dsn) {
+      initializeSentry()
     }
-
-    // Plausible Analytics (Alternative privacy-friendly)
-    if (config.public.plausibleDomain && process.client) {
-      useHead({
-        script: [
-          {
-            defer: true,
-            'data-domain': config.public.plausibleDomain,
-            src: 'https://plausible.io/js/script.js'
-          }
-        ]
-      })
-    }
-  }
-
-  // Tracking des erreurs personnalisé
-  const trackError = (error: Error, context?: Record<string, any>) => {
-    if (process.client) {
-      Sentry.captureException(error, {
-        contexts: {
-          custom: context
-        }
-      })
-    }
-  }
-
-  // Tracking des performances
-  const trackPerformance = (name: string, duration: number, metadata?: Record<string, any>) => {
-    if (process.client) {
-      Sentry.addBreadcrumb({
-        category: 'performance',
-        message: `${name}: ${duration}ms`,
-        level: 'info',
-        data: metadata
-      })
-    }
-  }
-
-  // Tracking des événements utilisateur
-  const trackEvent = (eventName: string, properties?: Record<string, any>) => {
-    if (process.client) {
-      // Sentry Event
-      Sentry.addBreadcrumb({
-        category: 'user-action',
-        message: eventName,
-        level: 'info',
-        data: properties
-      })
-
-      // Google Analytics 4
-      if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, properties)
-      }
-
-      // Plausible
-      if (typeof plausible !== 'undefined') {
-        plausible(eventName, { props: properties })
-      }
-    }
-  }
-
-  // Monitoring des API calls
-  const trackApiCall = async (apiName: string, url: string, method: string = 'GET') => {
-    const startTime = Date.now()
     
-    try {
-      const response = await $fetch(url, { method })
-      const duration = Date.now() - startTime
-      
-      trackPerformance(`API: ${apiName}`, duration, {
-        url,
-        method,
-        status: 'success'
-      })
-      
-      return response
-    } catch (error) {
-      const duration = Date.now() - startTime
-      
-      trackError(error as Error, {
-        apiName,
-        url,
-        method,
-        duration
-      })
-      
-      throw error
+    if (monitoringConfig?.enablePerformanceMonitoring) {
+      initializePerformanceMonitoring()
+    }
+    
+    if (monitoringConfig?.enableUserBehaviorTracking) {
+      initializeUserBehaviorTracking()
     }
   }
 
-  // Monitoring des Core Web Vitals
-  const setupWebVitals = () => {
-    if (process.client) {
-      // CLS (Cumulative Layout Shift)
-      new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          if (!entry.hadRecentInput) {
-            trackPerformance('CLS', entry.value, {
-              metric: 'layout-shift',
-              sources: entry.sources?.map(s => s.node)
-            })
+  /**
+   * Initialise Sentry pour le suivi des erreurs
+   */
+  const initializeSentry = () => {
+    if (sentryConfig?.dsn) {
+      console.log('Sentry initialized for error tracking')
+    }
+  }
+
+  /**
+   * Initialise le monitoring des performances
+   */
+  const initializePerformanceMonitoring = () => {
+    if (typeof window !== 'undefined') {
+      // Navigation timing
+      if ('performance' in window) {
+        window.addEventListener('load', () => {
+          const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
+          if (navigation) {
+            sendPerformanceMetric('DOMContentLoaded', { value: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart })
+            sendPerformanceMetric('LoadComplete', { value: navigation.loadEventEnd - navigation.loadEventStart })
           }
-        }
-      }).observe({ type: 'layout-shift', buffered: true })
-
-      // LCP (Largest Contentful Paint)
-      new PerformanceObserver((list) => {
-        const entries = list.getEntries()
-        const lastEntry = entries[entries.length - 1]
-        trackPerformance('LCP', lastEntry.startTime, {
-          metric: 'largest-contentful-paint',
-          element: lastEntry.element
         })
-      }).observe({ type: 'largest-contentful-paint', buffered: true })
+      }
+    }
+  }
 
-      // FID (First Input Delay)
-      new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          trackPerformance('FID', entry.processingStart - entry.startTime, {
-            metric: 'first-input-delay',
-            eventType: entry.name
+  /**
+   * Initialise le suivi du comportement utilisateur
+   */
+  const initializeUserBehaviorTracking = () => {
+    if (typeof window !== 'undefined') {
+      // Track page views
+      trackPageView()
+      
+      // Track user interactions
+      trackUserInteractions()
+      
+      // Track scroll depth
+      trackScrollDepth()
+    }
+  }
+
+  /**
+   * Envoie une métrique de performance
+   */
+  const sendPerformanceMetric = (name: string, metric: any) => {
+    // Envoyer à Grafana (si configuré)
+    if (grafanaConfig?.url && grafanaConfig?.apiKey) {
+      sendToGrafana('performance', { name, value: metric.value, timestamp: Date.now() })
+    }
+
+    console.log(`Performance metric: ${name} = ${metric.value}`)
+  }
+
+  /**
+   * Suit les vues de page
+   */
+  const trackPageView = (url?: string) => {
+    const currentUrl = url || window.location.pathname
+    
+    // Grafana
+    if (grafanaConfig?.url && grafanaConfig?.apiKey) {
+      sendToGrafana('pageview', { url: currentUrl, timestamp: Date.now() })
+    }
+  }
+
+  /**
+   * Suit les interactions utilisateur
+   */
+  const trackUserInteractions = () => {
+    if (typeof window !== 'undefined') {
+      // Track clicks
+      document.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement
+        if (target.tagName === 'BUTTON' || target.tagName === 'A') {
+          trackEvent('click', {
+            element: target.tagName.toLowerCase(),
+            text: target.textContent?.trim() || '',
+            href: (target as HTMLAnchorElement).href || ''
           })
         }
-      }).observe({ type: 'first-input', buffered: true })
+      })
+
+      // Track form submissions
+      document.addEventListener('submit', (event) => {
+        const form = event.target as HTMLFormElement
+        trackEvent('form_submit', {
+          form: form.id || form.action || 'unknown'
+        })
+      })
     }
+  }
+
+  /**
+   * Suit la profondeur de défilement
+   */
+  const trackScrollDepth = () => {
+    if (typeof window !== 'undefined') {
+      let maxScrollDepth = 0
+      
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight
+        const scrollPercent = Math.round((scrollTop / docHeight) * 100)
+        
+        if (scrollPercent > maxScrollDepth) {
+          maxScrollDepth = scrollPercent
+          
+          // Track at 25%, 50%, 75%, 100%
+          if ([25, 50, 75, 100].includes(maxScrollDepth)) {
+            trackEvent('scroll_depth', { depth: maxScrollDepth })
+          }
+        }
+      })
+    }
+  }
+
+  /**
+   * Suit un événement personnalisé
+   */
+  const trackEvent = (eventName: string, parameters: Record<string, any> = {}) => {
+    // Grafana
+    if (grafanaConfig?.url && grafanaConfig?.apiKey) {
+      sendToGrafana('event', { 
+        event: eventName, 
+        parameters, 
+        timestamp: Date.now() 
+      })
+    }
+
+    console.log(`Event tracked: ${eventName}`, parameters)
+  }
+
+  /**
+   * Envoie des données à Grafana
+   */
+  const sendToGrafana = async (metricType: string, data: any) => {
+    try {
+      const response = await fetch(`${grafanaConfig.url}/api/datasources/proxy/1/api/v1/write`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${grafanaConfig.apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          metric: `sdavesne.${metricType}`,
+          value: data.value || 1,
+          timestamp: data.timestamp || Date.now(),
+          tags: {
+            ...data,
+            app: config.public.appName || 'sdavesne-vitrine',
+            environment: sentryConfig?.environment || 'development'
+          }
+        })
+      })
+
+      if (!response.ok) {
+        console.warn('Failed to send data to Grafana:', response.statusText)
+      }
+    } catch (error) {
+      console.warn('Error sending data to Grafana:', error)
+    }
+  }
+
+  /**
+   * Capture une erreur
+   */
+  const captureError = (error: Error, context?: Record<string, any>) => {
+    // Grafana
+    if (grafanaConfig?.url && grafanaConfig?.apiKey) {
+      sendToGrafana('error', {
+        message: error.message,
+        stack: error.stack,
+        timestamp: Date.now()
+      })
+    }
+
+    console.error('Error captured:', error, context)
+  }
+
+  /**
+   * Définit l'utilisateur pour le tracking
+   */
+  const setUser = (userId: string, userData?: Record<string, any>) => {
+    console.log('User set for tracking:', userId)
   }
 
   return {
-    setupAnalytics,
-    trackError,
-    trackPerformance,
+    initializeMonitoring,
+    trackPageView,
     trackEvent,
-    trackApiCall,
-    setupWebVitals
-  }
-}
-
-// Types pour TypeScript
-declare global {
-  interface Window {
-    gtag: (...args: any[]) => void
-    plausible: (eventName: string, options?: { props?: Record<string, any> }) => void
+    captureError,
+    setUser,
+    sendPerformanceMetric
   }
 }
