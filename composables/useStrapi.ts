@@ -236,3 +236,70 @@ export const useStrapiAuth = () => {
     resetPassword
   }
 }
+
+/**
+ * Composable spécialisé pour les services
+ */
+export const useServices = () => {
+  const config = useRuntimeConfig()
+  const strapiUrl = config.public.strapiUrl
+  const strapiToken = config.public.strapiToken
+
+  // Récupérer tous les services
+  const getServices = async (featured?: boolean) => {
+    try {
+      const filters = featured ? { featured: { $eq: true } } : {}
+      
+      const response = await $fetch('/api/services', {
+        baseURL: strapiUrl,
+        query: {
+          populate: '*',
+          filters,
+          sort: 'createdAt:desc'
+        },
+        headers: strapiToken ? {
+          'Authorization': `Bearer ${strapiToken}`
+        } : {}
+      })
+      
+      return response?.data || []
+    } catch (error) {
+      console.error('Erreur lors de la récupération des services:', error)
+      throw error
+    }
+  }
+
+  // Récupérer uniquement les services en vedette
+  const getFeaturedServices = async () => {
+    return getServices(true)
+  }
+
+  // Récupérer un service par son slug
+  const getServiceBySlug = async (slug: string) => {
+    try {
+      const response = await $fetch('/api/services', {
+        baseURL: strapiUrl,
+        query: {
+          populate: '*',
+          filters: {
+            slug: { $eq: slug }
+          }
+        },
+        headers: strapiToken ? {
+          'Authorization': `Bearer ${strapiToken}`
+        } : {}
+      })
+      
+      return response?.data?.[0] || null
+    } catch (error) {
+      console.error('Erreur lors de la récupération du service:', error)
+      throw error
+    }
+  }
+
+  return {
+    getServices,
+    getFeaturedServices, 
+    getServiceBySlug
+  }
+}

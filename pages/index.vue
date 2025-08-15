@@ -284,8 +284,116 @@ useHead({
   ]
 })
 
-// Utilisation du composable useCal
+// Utilisation des composables
 const { initInlineCalendar } = useCal()
+const { getFeaturedServices } = useServices()
+
+// Services dynamiques depuis Strapi (services en vedette uniquement)
+const { data: featuredServices, pending: pendingServices } = await useFetch('services', {
+  server: false,
+  query: { 
+    filters: { featured: { $eq: true } },
+    populate: '*'
+  },
+  transform: (data: any) => {
+    // Gérer le format de réponse Strapi
+    if (data?.data) return data.data
+    if (Array.isArray(data)) return data
+    return []
+  },
+  default: () => []
+})
+
+// Services statiques en fallback
+const fallbackServices = [
+  {
+    id: 1,
+    attributes: {
+      title: 'Arrêt du tabac',
+      description: 'Libération définitive de la dépendance tabagique grâce à l\'hypnose thérapeutique. Méthode douce et naturelle.',
+      icon: 'no-smoking',
+      color: 'blue'
+    }
+  },
+  {
+    id: 2,
+    attributes: {
+      title: 'Gestion du stress',
+      description: 'Techniques de relaxation profonde et gestion émotionnelle pour retrouver sérénité et équilibre au quotidien.',
+      icon: 'heart',
+      color: 'emerald'
+    }
+  },
+  {
+    id: 3,
+    attributes: {
+      title: 'Confiance en soi',
+      description: 'Développement de l\'estime personnelle et dépassement des blocages pour révéler votre plein potentiel.',
+      icon: 'lightning',
+      color: 'blue'
+    }
+  }
+]
+
+// Services à afficher (Strapi ou fallback)
+const displayedServices = computed(() => {
+  if (featuredServices.value && featuredServices.value.length > 0) {
+    return featuredServices.value.slice(0, 3)
+  }
+  return fallbackServices
+})
+
+// Fonctions pour les styles et icônes
+const getServiceClasses = (color: string) => {
+  const classes = {
+    blue: 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200',
+    emerald: 'bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200',
+    purple: 'bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200'
+  }
+  return classes[color] || classes.blue
+}
+
+const getIconClasses = (color: string) => {
+  const classes = {
+    blue: 'bg-gradient-to-br from-blue-600 to-blue-700',
+    emerald: 'bg-gradient-to-br from-emerald-600 to-emerald-700',
+    purple: 'bg-gradient-to-br from-purple-600 to-purple-700'
+  }
+  return classes[color] || classes.blue
+}
+
+const getTextClasses = (color: string) => {
+  const classes = {
+    blue: 'text-blue-600',
+    emerald: 'text-emerald-600',
+    purple: 'text-purple-600'
+  }
+  return classes[color] || classes.blue
+}
+
+const getBadge = (color: string) => {
+  const badges = {
+    blue: '💊 Approche médicale',
+    emerald: '🌿 Bien-être naturel',
+    purple: '⚡ Transformation personnelle'
+  }
+  return badges[color] || badges.blue
+}
+
+const getIcon = (iconName: string) => {
+  const icons = {
+    'no-smoking': () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+      h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L5.636 5.636' })
+    ]),
+    'heart': () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+      h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' })
+    ]),
+    'lightning': () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+      h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M13 10V3L4 14h7v7l9-11h-7z' })
+    ])
+  }
+  return icons[iconName] || icons.heart
+}
 
 // Fonction pour scroll vers la section booking
 const scrollToBooking = () => {
