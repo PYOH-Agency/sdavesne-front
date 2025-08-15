@@ -230,6 +230,8 @@
 </template>
 
 <script setup lang="ts">
+import { useCal } from '../composables/useCal'
+
 // Configuration de la page
 useHead({
   title: 'Sophie Davesne - Hypnothérapeute | Accompagnement bienveillant en hypnose',
