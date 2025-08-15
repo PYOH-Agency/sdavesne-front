@@ -52,7 +52,7 @@ export const useCal = () => {
                     target="_blank" 
                     style="display: inline-block; background: linear-gradient(135deg, #2563eb, #059669); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;"
                   >
-                    📅 Ouvrir le calendrier
+                    Ouvrir le calendrier
                   </a>
                 </div>
               </div>

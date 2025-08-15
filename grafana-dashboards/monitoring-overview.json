@@ -1,0 +1,176 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Sites Monitoring - Vue d'ensemble",
+    "tags": ["monitoring", "uptime", "performance"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "État Global des Sites",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "uptimerobot_monitor_status",
+            "refId": "A",
+            "legendFormat": "{{friendly_name}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": 0},
+                {"color": "yellow", "value": 1},
+                {"color": "green", "value": 2}
+              ]
+            },
+            "mappings": [
+              {"options": {"0": {"text": "DOWN"}}, "type": "value"},
+              {"options": {"1": {"text": "PAUSED"}}, "type": "value"},
+              {"options": {"2": {"text": "UP"}}, "type": "value"}
+            ]
+          }
+        },
+        "gridPos": {"h": 6, "w": 8, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Temps de Réponse Moyen",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "avg(uptimerobot_monitor_response_time)",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "ms",
+            "color": {"mode": "palette-classic"}
+          }
+        },
+        "gridPos": {"h": 6, "w": 8, "x": 8, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "Disponibilité 24h",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "avg(uptimerobot_monitor_uptime_ratio)",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": 0},
+                {"color": "yellow", "value": 95},
+                {"color": "green", "value": 99}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 6, "w": 8, "x": 16, "y": 0}
+      },
+      {
+        "id": 4,
+        "title": "Détail par Site",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "uptimerobot_monitor_status",
+            "refId": "A",
+            "format": "table"
+          }
+        ],
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {},
+              "indexByName": {},
+              "renameByName": {
+                "friendly_name": "Site",
+                "url": "URL",
+                "Value": "Statut",
+                "all_time_uptime_ratio": "Disponibilité"
+              }
+            }
+          }
+        ],
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 6}
+      },
+      {
+        "id": 5,
+        "title": "Erreurs Sentry (24h)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "sentry_events_total",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "short"
+          }
+        },
+        "gridPos": {"h": 6, "w": 12, "x": 0, "y": 14}
+      },
+      {
+        "id": 6,
+        "title": "Performance Web Vitals",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(web_vitals_lcp_bucket[5m]))",
+            "refId": "A",
+            "legendFormat": "LCP P95"
+          },
+          {
+            "expr": "histogram_quantile(0.95, rate(web_vitals_fid_bucket[5m]))",
+            "refId": "B",
+            "legendFormat": "FID P95"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "ms",
+            "color": {"mode": "palette-classic"}
+          }
+        },
+        "gridPos": {"h": 6, "w": 12, "x": 12, "y": 14}
+      }
+    ],
+    "time": {
+      "from": "now-24h",
+      "to": "now"
+    },
+    "refresh": "5m",
+    "schemaVersion": 38,
+    "version": 1,
+    "links": [
+      {
+        "title": "UptimeRobot Dashboard",
+        "url": "https://uptimerobot.com/dashboard",
+        "type": "link"
+      },
+      {
+        "title": "Sentry Dashboard",
+        "url": "https://sentry.io/",
+        "type": "link"
+      }
+    ]
+  },
+  "overwrite": true
+}

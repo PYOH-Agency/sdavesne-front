@@ -303,3 +303,92 @@ export const useServices = () => {
     getServiceBySlug
   }
 }
+
+/**
+ * Composable spécialisé pour les témoignages
+ */
+export const useTestimonials = () => {
+  const config = useRuntimeConfig()
+  const strapiUrl = config.public.strapiUrl
+  const strapiToken = config.public.strapiToken
+
+  // Récupérer tous les témoignages publiés
+  const getTestimonials = async () => {
+    try {
+      const response = await $fetch('/api/testimonials', {
+        baseURL: strapiUrl,
+        query: {
+          populate: '*',
+          filters: {
+            published: { $eq: true }
+          },
+          sort: 'createdAt:desc'
+        },
+        headers: strapiToken ? {
+          'Authorization': `Bearer ${strapiToken}`
+        } : {}
+      })
+      
+      return response?.data || []
+    } catch (error) {
+      console.error('Erreur lors de la récupération des témoignages:', error)
+      throw error
+    }
+  }
+
+  // Créer un nouveau témoignage
+  const createTestimonial = async (testimonialData: {
+    name: string
+    content: string
+    service?: string
+    rating: number
+  }) => {
+    try {
+      const response = await $fetch('/api/testimonials', {
+        baseURL: strapiUrl,
+        method: 'POST',
+        body: {
+          data: {
+            ...testimonialData,
+            published: false // En attente de modération par défaut
+          }
+        },
+        headers: strapiToken ? {
+          'Authorization': `Bearer ${strapiToken}`
+        } : {}
+      })
+      
+      return response?.data || null
+    } catch (error) {
+      console.error('Erreur lors de la création du témoignage:', error)
+      throw error
+    }
+  }
+
+  // Mettre à jour le statut de publication d'un témoignage (admin)
+  const updateTestimonialStatus = async (id: string | number, published: boolean) => {
+    try {
+      const response = await $fetch(`/api/testimonials/${id}`, {
+        baseURL: strapiUrl,
+        method: 'PUT',
+        body: {
+          data: { published }
+        },
+        headers: strapiToken ? {
+          'Authorization': `Bearer ${strapiToken}`
+        } : {}
+      })
+      
+      return response?.data || null
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du témoignage:', error)
+      throw error
+    }
+  }
+
+  return {
+    getTestimonials,
+    createTestimonial,
+    updateTestimonialStatus
+  }
+}
