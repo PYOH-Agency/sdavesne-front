@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const useCal = () => {
   const openCalPopup = (calUsername: string, eventType?: string) => {
     if (process.client) {

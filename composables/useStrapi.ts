@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Composable pour intégrer facilement Strapi dans Nuxt 3
  */

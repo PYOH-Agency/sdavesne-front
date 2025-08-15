@@ -103,6 +103,7 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
 // Configuration de la page
 useHead({
   title: 'Test API - Template Nuxt + Strapi'

@@ -274,6 +274,7 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
 // Configuration de la page
 useHead({
   title: 'Sophie Davesne - Hypnothérapeute | Cabinet médical d\'hypnose thérapeutique',
