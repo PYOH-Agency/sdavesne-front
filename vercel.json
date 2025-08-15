@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-template-front",
+  "name": "sophie-davesne-vitrine",
   "version": 2,
   "builds": [
     {
@@ -21,10 +21,5 @@
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "app/api/**/*.js": {
-      "maxDuration": 10
-    }
   }
 }
