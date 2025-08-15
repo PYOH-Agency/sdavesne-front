@@ -1,0 +1,1 @@
+export { default } from "file:///Users/paulbugeon/PYOH/sdavesne%20-%20Sophie%20Davesne%20Vitrine/sdavesne-front/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"
