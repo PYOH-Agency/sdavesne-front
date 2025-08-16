@@ -1,36 +1,20 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50">
     <!-- Navigation -->
-    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-6">
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-              </svg>
-            </div>
-            <div>
-              <h1 class="text-2xl font-bold text-gray-900">Sophie Davesne</h1>
-              <p class="text-sm text-blue-600 font-medium">Hypnothérapeute Certifiée</p>
-            </div>
-          </div>
-          
-          <div class="hidden md:flex items-center space-x-8">
-            <NuxtLink to="/" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Accueil</NuxtLink>
-            <NuxtLink to="/a-propos" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">À propos</NuxtLink>
-            <NuxtLink to="/services" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Services</NuxtLink>
-            <NuxtLink to="/contact" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</NuxtLink>
-            <button 
-              @click="scrollToBooking"
-              class="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            >
-              Prendre RDV
-            </button>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <AppHeader
+      title="Sophie Davesne"
+      subtitle="Hypnothérapeute Certifiée"
+      avatar="/images/sophie-davesne-avatar.svg"
+      :navigation="[
+        { path: '/', label: 'Accueil' },
+        { path: '/a-propos', label: 'À propos' },
+        { path: '/services', label: 'Services' },
+        { path: '/contact', label: 'Contact' }
+      ]"
+      :cta="{
+        primary: { path: '/#booking', label: '🩺 Prendre RDV' }
+      }"
+    />
 
     <!-- Hero Section -->
     <section class="relative overflow-hidden">
@@ -502,10 +486,13 @@
 
 <script setup lang="ts">
 // @ts-nocheck
-// Désactiver le SSR pour cette page
+// Configuration de la page
 definePageMeta({
   ssr: false
 })
+
+// Import explicite du composant du kit
+import AppHeader from 'nuxt-components-kit/components/layout/AppHeader.vue'
 
 // Configuration de la page
 useHead({
@@ -519,12 +506,12 @@ useHead({
 // Utilisation des composables
 const { initInlineCalendar } = useCal()
 
-// Services dynamiques depuis Strapi uniquement
-const displayedServices = ref([])
+// Import du composable Strapi
+const { getFeaturedServices, getTestimonials } = useStrapiData()
 
-// État pour Strapi
+// Services dynamiques depuis Strapi
+const displayedServices = ref([])
 const pendingServices = ref(false)
-const strapiFeaturedServices = ref([])
 
 // Fonction pour charger les services en vedette depuis Strapi
 const loadStrapiFeaturedServices = async () => {
@@ -533,19 +520,10 @@ const loadStrapiFeaturedServices = async () => {
   pendingServices.value = true
   
   try {
-    const response = await $fetch('/api/services', {
-      baseURL: 'http://localhost:1337',
-      query: { 
-        populate: '*',
-        sort: 'createdAt:desc'
-      }
-    })
+    const services = await getFeaturedServices()
     
-    if (response?.data && Array.isArray(response.data) && response.data.length > 0) {
-      // Filtrer et mapper les services en vedette uniquement
-      const featuredServices = response.data.filter(service => service.featured === true)
-      
-      const mappedServices = featuredServices.map(service => ({
+    if (services && services.length > 0) {
+      const mappedServices = services.map(service => ({
         id: service.id,
         attributes: {
           title: service.title,
@@ -556,12 +534,11 @@ const loadStrapiFeaturedServices = async () => {
         }
       }))
       
-      strapiFeaturedServices.value = mappedServices
       displayedServices.value = mappedServices.slice(0, 3)
-      console.log('Services en vedette Strapi chargés:', mappedServices.length)
+      console.log('✅ Services en vedette chargés:', mappedServices.length)
     }
   } catch (err) {
-    console.log('Strapi non disponible, utilisation des services statiques')
+    console.error('❌ Erreur lors du chargement des services:', err)
   } finally {
     pendingServices.value = false
   }
@@ -572,14 +549,14 @@ onMounted(() => {
   loadStrapiFeaturedServices()
   loadTestimonials()
   
-  // Auto-rotate testimonials après un délai pour permettre le chargement
+  // Auto-rotate testimonials après un délai
   setTimeout(() => {
     if (testimonials.value.length > 1) {
       setInterval(() => {
         nextTestimonial()
       }, 8000) // Change toutes les 8 secondes
     }
-  }, 2000) // Attendre 2 secondes que Strapi charge
+  }, 2000)
 })
 
 // Gestion des témoignages - uniquement depuis Strapi
@@ -618,20 +595,11 @@ const loadTestimonials = async () => {
   try {
     console.log('Chargement des témoignages depuis Strapi...')
     
-    // Charger tous les témoignages et filtrer côté client
-    const response = await $fetch('/api/testimonials', {
-      baseURL: 'http://localhost:1337',
-      query: {
-        populate: '*',
-        sort: 'createdAt:desc'
-      }
-    })
+    const response = await getTestimonials()
     
-    console.log('Réponse Strapi testimonials:', response)
-    
-    if (response?.data && Array.isArray(response.data) && response.data.length > 0) {
+    if (response && response.length > 0) {
       // Filtrer côté client les témoignages publiés et exclure le test
-      const validTestimonials = response.data.filter(testimonial => 
+      const validTestimonials = response.filter(testimonial => 
         testimonial.published && 
         testimonial.name !== 'Paul Bugeon' &&
         testimonial.service !== 'Test'

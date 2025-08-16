@@ -25,7 +25,7 @@
               to="/#booking"
               class="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
-              🩺 Prendre RDV
+             Prendre RDV
             </NuxtLink>
           </div>
         </div>
@@ -252,7 +252,6 @@ const loadStrapiServices = async () => {
   
   try {
     const response = await $fetch('/api/services', {
-      baseURL: 'http://localhost:1337',
       query: {
         populate: '*',
         sort: 'createdAt:desc'
