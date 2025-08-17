@@ -2,9 +2,8 @@ export default defineEventHandler(async (event) => {
   try {
     console.log('🔍 API Services appelée')
     
-    // Utiliser la configuration runtime de Nuxt pour l'URL Strapi
-    const config = useRuntimeConfig()
-    const strapiUrl = config.public.strapiUrl
+    // Utiliser directement les variables d'environnement
+    const strapiUrl = process.env.NUXT_PUBLIC_STRAPI_URL || 'https://abundant-horse-f9e91a1796.strapiapp.com'
     console.log('URL Strapi:', strapiUrl)
     
     // Appel direct vers Strapi
