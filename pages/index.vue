@@ -595,7 +595,15 @@ const loadTestimonials = async () => {
   try {
     console.log('Chargement des témoignages depuis Strapi...')
     
-    const response = await getTestimonials()
+    const response = await $fetch('/api/test-simple', {
+      method: 'POST',
+      body: {
+        name: testimonialForm.value.name.trim(),
+        content: testimonialForm.value.content.trim(),
+        service: testimonialForm.value.service.trim() || null,
+        rating: testimonialForm.value.rating
+      }
+    })
     
     if (response && response.length > 0) {
       // Filtrer côté client les témoignages publiés et exclure le test
@@ -645,17 +653,13 @@ const submitTestimonial = async () => {
   submittingTestimonial.value = true
   
   try {
-    const response = await $fetch('/api/testimonials', {
-      baseURL: 'http://localhost:1337',
+    const response = await $fetch('/api/test-simple', {
       method: 'POST',
       body: {
-        data: {
-          name: testimonialForm.value.name.trim(),
-          content: testimonialForm.value.content.trim(),
-          service: testimonialForm.value.service.trim() || null,
-          rating: testimonialForm.value.rating,
-          published: false // En attente de modération
-        }
+        name: testimonialForm.value.name.trim(),
+        content: testimonialForm.value.content.trim(),
+        service: testimonialForm.value.service.trim() || null,
+        rating: testimonialForm.value.rating
       }
     })
     
