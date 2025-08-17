@@ -595,7 +595,7 @@ const loadTestimonials = async () => {
   try {
     console.log('Chargement des témoignages depuis Strapi...')
     
-    const response = await $fetch('/api/test-simple', {
+    const response = await $fetch('/api/testimonials', {
       method: 'POST',
       body: {
         name: testimonialForm.value.name.trim(),
@@ -653,7 +653,7 @@ const submitTestimonial = async () => {
   submittingTestimonial.value = true
   
   try {
-    const response = await $fetch('/api/test-simple', {
+    const response = await $fetch('/api/testimonials', {
       method: 'POST',
       body: {
         name: testimonialForm.value.name.trim(),
