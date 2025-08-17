@@ -39,6 +39,8 @@
         { name: 'Email', url: 'mailto:sophie.davesne@example.com', icon: 'email' },
         { name: 'Téléphone', url: 'tel:+33123456789', icon: 'phone' }
       ]"
+      copyrightText="PYOH - Tous droits réservés"
+      additionalInfo="Agence de développement web"
     />
   </div>
 </template>
