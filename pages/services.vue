@@ -1,37 +1,5 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50">
-    <!-- Navigation -->
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-blue-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-6">
-          <NuxtLink to="/" class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-              </svg>
-            </div>
-            <div>
-              <h1 class="text-2xl font-bold text-gray-900">Sophie Davesne</h1>
-              <p class="text-sm text-blue-600 font-medium">Hypnothérapeute Certifiée</p>
-            </div>
-          </NuxtLink>
-          
-          <div class="hidden md:flex items-center space-x-8">
-            <NuxtLink to="/" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Accueil</NuxtLink>
-            <NuxtLink to="/services" class="text-blue-600 font-medium">Services</NuxtLink>
-            <NuxtLink to="/a-propos" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">À propos</NuxtLink>
-            <NuxtLink to="/contact" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</NuxtLink>
-            <NuxtLink 
-              to="/#booking"
-              class="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            >
-             Prendre RDV
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </nav>
-
     <!-- Hero Section Services -->
     <section class="py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -142,80 +110,18 @@
             to="/#booking"
             class="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
-            🩺 Réserver une consultation
+            Réserver une consultation
           </NuxtLink>
           
           <NuxtLink 
             to="/contact"
             class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-50 transition-all duration-300"
           >
-            💬 Me contacter
+            Me contacter
           </NuxtLink>
         </div>
       </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 border-t border-blue-900">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <NuxtLink to="/" class="flex items-center space-x-3 mb-4">
-              <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-emerald-600 rounded-xl flex items-center justify-center">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                </svg>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold">Sophie Davesne</h3>
-                <p class="text-blue-300">Hypnothérapeute Certifiée</p>
-              </div>
-            </NuxtLink>
-            <p class="text-gray-300">
-              Accompagnement professionnel en hypnose thérapeutique pour votre bien-être et votre épanouissement.
-            </p>
-          </div>
-          
-          <div>
-            <h4 class="text-lg font-semibold mb-4 text-blue-300">Navigation</h4>
-            <ul class="space-y-2">
-              <li><NuxtLink to="/" class="text-gray-300 hover:text-white transition-colors">Accueil</NuxtLink></li>
-              <li><NuxtLink to="/services" class="text-gray-300 hover:text-white transition-colors">Services</NuxtLink></li>
-              <li><NuxtLink to="/a-propos" class="text-gray-300 hover:text-white transition-colors">À propos</NuxtLink></li>
-              <li><NuxtLink to="/contact" class="text-gray-300 hover:text-white transition-colors">Contact</NuxtLink></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 class="text-lg font-semibold mb-4 text-emerald-300">Contact</h4>
-            <div class="space-y-2 text-gray-300">
-              <div class="flex items-center space-x-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
-                <span>contact@sophie-davesne.fr</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                </svg>
-                <span>06 XX XX XX XX</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                <span>Cabinet médical, Votre ville</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Sophie Davesne - Hypnothérapeute. Tous droits réservés. | Numéro ADELI : XXXXXXXXX</p>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 

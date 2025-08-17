@@ -11,11 +11,13 @@ export default defineNuxtConfig({
   
   // Composants auto-importés
   components: [
-    '~/components'
+    '~/components',
+    '@pbugeon/nuxt-components-kit/components'
   ],
-  
 
-  
+  // Configuration des pages
+  pages: true,
+
   // Modules
   modules: [
     '@nuxtjs/tailwindcss',
