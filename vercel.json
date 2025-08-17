@@ -1,12 +1,8 @@
 {
-  "name": "nuxt-template-front",
   "version": 2,
-  "builds": [
-    {
-      "src": "nuxt.config.ts",
-      "use": "@nuxtjs/vercel-builder"
-    }
-  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": ".output",
+  "framework": "nuxt",
   "routes": [
     {
       "src": "/_nuxt/(.*)",
@@ -21,10 +17,5 @@
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "app/api/**/*.js": {
-      "maxDuration": 10
-    }
   }
 }
