@@ -6,16 +6,9 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
     console.log('Body reçu:', body)
     
-    // Essayer plusieurs méthodes pour récupérer l'URL Strapi
-    let strapiUrl = process.env.NUXT_PUBLIC_STRAPI_URL
-    
-    // Si pas de variable d'environnement, utiliser l'URL de production par défaut
-    if (!strapiUrl) {
-      strapiUrl = 'https://abundant-horse-f9e91a1796.strapiapp.com'
-      console.log('⚠️ Variable d\'environnement non trouvée, utilisation de l\'URL par défaut')
-    }
-    
-    console.log('URL Strapi utilisée:', strapiUrl)
+    // URL Strapi hardcodée pour forcer la production
+    const strapiUrl = 'https://abundant-horse-f9e91a1796.strapiapp.com'
+    console.log('URL Strapi utilisée (FORCÉE vers production):', strapiUrl)
     
     // Préparer les données pour Strapi
     const testimonialData = {
@@ -42,10 +35,11 @@ export default defineEventHandler(async (event) => {
       }
     })
     
-    console.log('✅ Témoignage créé dans Strapi:', response)
+    console.log('✅ Témoignage créé dans Strapi PRODUCTION:', response)
     return {
       success: true,
-      message: 'Témoignage créé avec succès',
+      message: 'Témoignage créé avec succès dans Strapi PRODUCTION',
+      strapiUrl,
       data: response
     }
     
