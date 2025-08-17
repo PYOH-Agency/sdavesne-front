@@ -23,9 +23,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
   strapi: {
-    url: process.env.NUXT_PUBLIC_STRAPI_URL || (process.env.NODE_ENV === 'production' 
-      ? 'https://abundant-horse-f9e91a1796.strapiapp.com' 
-      : 'http://localhost:1337'),
+    url: process.env.NUXT_PUBLIC_STRAPI_URL || 'https://abundant-horse-f9e91a1796.strapiapp.com',
     prefix: '/api',
     version: 'v4',
     cookie: {},
@@ -33,9 +31,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      strapiUrl: process.env.NUXT_PUBLIC_STRAPI_URL || (process.env.NODE_ENV === 'production' 
-        ? 'https://abundant-horse-f9e91a1796.strapiapp.com' 
-        : 'http://localhost:1337'),
+      strapiUrl: process.env.NUXT_PUBLIC_STRAPI_URL || 'https://abundant-horse-f9e91a1796.strapiapp.com',
       strapiToken: process.env.NUXT_PUBLIC_STRAPI_TOKEN || '',
       // Monitoring Configuration (Production only)
       ...(process.env.NODE_ENV === 'production' ? {
