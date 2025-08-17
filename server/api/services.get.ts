@@ -2,8 +2,9 @@ export default defineEventHandler(async (event) => {
   try {
     console.log('🔍 API Services appelée')
     
-    // URL Strapi hardcodée pour le test
-    const strapiUrl = 'http://localhost:1337'
+    // Utiliser la configuration runtime de Nuxt pour l'URL Strapi
+    const config = useRuntimeConfig()
+    const strapiUrl = config.public.strapiUrl
     console.log('URL Strapi:', strapiUrl)
     
     // Appel direct vers Strapi

@@ -1,12 +1,21 @@
 #!/bin/bash
 
-# 🚀 Script de Déploiement Automatique - Template Nuxt Front
-# Ce script automatise le processus de déploiement vers GitHub et Vercel
+# 🚀 Déploiement de votre projet Nuxt
+# Ce script déploie automatiquement votre projet sur Vercel
 
 set -e  # Arrêter en cas d'erreur
 
+# Configuration des variables d'environnement de production
+export NODE_ENV=production
+export NUXT_PUBLIC_STRAPI_URL=https://abundant-horse-f9e91a1796.strapiapp.com
+export NUXT_PUBLIC_APP_NAME="Sophie Davesne Vitrine"
+export NUXT_PUBLIC_APP_DESCRIPTION="Site vitrine de Sophie Davesne"
+
 echo "🚀 Déploiement de votre projet Nuxt"
 echo "===================================="
+echo "🌍 Environnement: PRODUCTION"
+echo "🔗 URL Strapi: $NUXT_PUBLIC_STRAPI_URL"
+echo ""
 
 # Couleurs pour l'affichage
 RED='\033[0;31m'
