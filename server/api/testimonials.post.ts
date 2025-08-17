@@ -25,6 +25,29 @@ export default defineEventHandler(async (event) => {
     
     console.log('Données envoyées à Strapi:', testimonialData)
     
+    // Test de connexion à Strapi d'abord
+    try {
+      console.log('Test de connexion à Strapi...')
+      const testResponse = await $fetch('/api/testimonials', {
+        baseURL: strapiUrl,
+        method: 'GET',
+        query: {
+          populate: '*',
+          sort: 'createdAt:desc'
+        }
+      })
+      console.log('✅ Test de connexion Strapi réussi:', testResponse?.data?.length || 0, 'témoignages existants')
+    } catch (testError) {
+      console.error('❌ Test de connexion Strapi échoué:', testError)
+      return {
+        success: false,
+        message: 'Test de connexion Strapi échoué',
+        strapiUrl,
+        error: testError.message,
+        details: testError
+      }
+    }
+    
     // Créer le témoignage dans Strapi
     const response = await $fetch('/api/testimonials', {
       baseURL: strapiUrl,
@@ -45,10 +68,14 @@ export default defineEventHandler(async (event) => {
     
   } catch (error) {
     console.error('❌ Erreur création témoignage:', error)
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erreur lors de la création du témoignage',
-      data: error
-    })
+    return {
+      success: false,
+      message: 'Erreur lors de la création du témoignage',
+      strapiUrl: 'https://abundant-horse-f9e91a1796.strapiapp.com',
+      error: error.message,
+      errorType: error.name,
+      errorStack: error.stack,
+      fullError: error
+    }
   }
 })
