@@ -11,11 +11,7 @@ export default defineNuxtConfig({
   
   // Composants auto-importés
   components: [
-    '~/components',
-    {
-      path: '~/node_modules/nuxt-components-kit/components',
-      prefix: 'Kit'
-    }
+    '~/components'
   ],
   
 

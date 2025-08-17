@@ -492,7 +492,7 @@ definePageMeta({
 })
 
 // Import explicite du composant du kit
-import AppHeader from 'nuxt-components-kit/components/layout/AppHeader.vue'
+import { AppHeader } from '@pbugeon/nuxt-components-kit'
 
 // Configuration de la page
 useHead({
