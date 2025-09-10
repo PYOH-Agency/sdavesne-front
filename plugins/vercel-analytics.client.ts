@@ -5,3 +5,5 @@ export default defineNuxtPlugin(() => {
   // Injecter l'analytics Vercel
   inject()
 })
+
+

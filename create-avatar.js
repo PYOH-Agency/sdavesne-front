@@ -26,3 +26,4 @@ fs.writeFileSync(path.join(__dirname, 'public/images/sophie-davesne-avatar.svg')
 console.log('✅ Avatar SVG temporaire créé avec succès !');
 console.log('📝 Remplacez-le par la vraie photo de Sophie Davesne dans public/images/sophie-davesne-avatar.jpg');
 console.log('💡 Format recommandé : JPG, 96x96px ou 192x192px');
+

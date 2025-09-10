@@ -34,3 +34,4 @@ Si vous changez le nom du fichier, mettez à jour `pages/index.vue` :
 - **Format** : JPG pour photos, PNG pour transparence
 - **Poids** : < 100KB pour de bonnes performances
 - **Style** : Photo professionnelle, sourire chaleureux
+

@@ -25,7 +25,9 @@ export const useStrapiData = () => {
   // Récupérer les témoignages
   const getTestimonials = async () => {
     try {
-      const response = await $fetch('/api/testimonials')
+      const response = await $fetch('/api/testimonials', {
+        method: 'GET'
+      })
       return response?.data || []
     } catch (error) {
       console.error('Erreur lors de la récupération des témoignages:', error)

@@ -152,9 +152,9 @@
         <div v-else-if="testimonials.length > 0" class="relative mb-12 animate-fade-in-up animation-delay-400">
           <!-- Navigation gauche -->
           <button 
-            @click="previousTestimonial"
+            @click="previousPage"
             class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-blue-600 hover:shadow-xl transition-all duration-300 transform hover:scale-110"
-            :disabled="testimonials.length <= 1"
+            :disabled="totalPages <= 1"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -165,45 +165,46 @@
           <div class="overflow-hidden mx-16">
             <div 
               class="flex transition-transform duration-500 ease-in-out"
-              :style="{ transform: `translateX(-${currentTestimonial * 100}%)` }"
+              :style="{ transform: `translateX(-${currentPage * 100}%)` }"
             >
               <div 
-                v-for="(testimonial, index) in testimonials" 
-                :key="testimonial.id"
-                class="w-full flex-shrink-0"
+                v-for="(testimonial, index) in currentPageTestimonials"
+                :key="testimonial ? testimonial.id : `empty-${index}`"
+                class="w-1/3 flex-shrink-0 px-4"
               >
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                  <div class="flex items-center mb-6">
+                <div v-if="testimonial" class="bg-white p-6 rounded-2xl shadow-lg h-full">
+                  <div class="flex items-center mb-4">
                     <div class="flex text-yellow-400">
-                      <svg v-for="star in 5" :key="star" class="w-5 h-5" :class="star <= testimonial.rating ? 'text-yellow-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                      <svg v-for="star in 5" :key="star" class="w-4 h-4" :class="star <= testimonial.rating ? 'text-yellow-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                       </svg>
                     </div>
                   </div>
                   
-                  <blockquote class="text-lg text-gray-700 mb-6 leading-relaxed">
+                  <blockquote class="text-base text-gray-700 mb-4 leading-relaxed">
                     "{{ testimonial.content }}"
                   </blockquote>
                   
                   <div class="flex items-center">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
                       {{ testimonial.name.charAt(0).toUpperCase() }}
                     </div>
                     <div>
-                      <div class="font-semibold text-gray-900">{{ testimonial.name }}</div>
-                      <div class="text-sm text-gray-500">{{ testimonial.service || 'Patient' }}</div>
+                      <div class="font-semibold text-gray-900 text-sm">{{ testimonial.name }}</div>
+                      <div class="text-xs text-gray-500">{{ testimonial.service || 'Patient' }}</div>
                     </div>
                   </div>
                 </div>
+                <div v-else class="h-full"></div>
               </div>
             </div>
           </div>
 
           <!-- Navigation droite -->
           <button 
-            @click="nextTestimonial"
+            @click="nextPage"
             class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-blue-600 hover:shadow-xl transition-all duration-300 transform hover:scale-110"
-            :disabled="testimonials.length <= 1"
+            :disabled="totalPages <= 1"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -211,13 +212,13 @@
           </button>
 
           <!-- Indicateurs -->
-          <div class="flex justify-center space-x-2 mt-8" v-if="testimonials.length > 1">
+          <div class="flex justify-center space-x-2 mt-8" v-if="totalPages > 1">
             <button 
-              v-for="(testimonial, index) in testimonials" 
+              v-for="(page, index) in totalPages" 
               :key="`dot-${index}`"
-              @click="currentTestimonial = index"
+              @click="currentPage = index"
               class="w-3 h-3 rounded-full transition-all duration-300"
-              :class="currentTestimonial === index ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'"
+              :class="currentPage === index ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'"
             ></button>
           </div>
         </div>
@@ -475,9 +476,9 @@ onMounted(() => {
   
   // Auto-rotate testimonials après un délai
   setTimeout(() => {
-    if (testimonials.value.length > 1) {
+    if (totalPages.value > 1) {
       setInterval(() => {
-        nextTestimonial()
+        nextPage()
       }, 8000) // Change toutes les 8 secondes
     }
   }, 2000)
@@ -487,9 +488,34 @@ onMounted(() => {
 const testimonials = ref([])
 const loadingTestimonials = ref(false)
 
-const currentTestimonial = ref(0)
+const currentPage = ref(0)
+const testimonialsPerPage = 3
 const showTestimonialForm = ref(false)
 const submittingTestimonial = ref(false)
+
+// Calculer le nombre total de pages
+const totalPages = computed(() => {
+  return Math.ceil(testimonials.value.length / testimonialsPerPage)
+})
+
+// Créer des pages de témoignages
+const testimonialPages = computed(() => {
+  const pages = []
+  for (let i = 0; i < testimonials.value.length; i += testimonialsPerPage) {
+    const page = testimonials.value.slice(i, i + testimonialsPerPage)
+    // Compléter la page avec des témoignages vides si nécessaire
+    while (page.length < testimonialsPerPage) {
+      page.push(null)
+    }
+    pages.push(page)
+  }
+  return pages
+})
+
+// Obtenir les témoignages de la page actuelle
+const currentPageTestimonials = computed(() => {
+  return testimonialPages.value[currentPage.value] || []
+})
 
 // Formulaire témoignage
 const testimonialForm = ref({
@@ -500,14 +526,14 @@ const testimonialForm = ref({
 })
 
 // Navigation carrousel
-const nextTestimonial = () => {
-  currentTestimonial.value = (currentTestimonial.value + 1) % testimonials.value.length
+const nextPage = () => {
+  currentPage.value = (currentPage.value + 1) % totalPages.value
 }
 
-const previousTestimonial = () => {
-  currentTestimonial.value = currentTestimonial.value === 0 
-    ? testimonials.value.length - 1 
-    : currentTestimonial.value - 1
+const previousPage = () => {
+  currentPage.value = currentPage.value === 0 
+    ? totalPages.value - 1 
+    : currentPage.value - 1
 }
 
 // Charger les témoignages depuis Strapi
@@ -520,18 +546,12 @@ const loadTestimonials = async () => {
     console.log('Chargement des témoignages depuis Strapi...')
     
     const response = await $fetch('/api/testimonials', {
-      method: 'POST',
-      body: {
-        name: testimonialForm.value.name.trim(),
-        content: testimonialForm.value.content.trim(),
-        service: testimonialForm.value.service.trim() || null,
-        rating: testimonialForm.value.rating
-      }
+      method: 'GET'
     })
     
-    if (response && response.length > 0) {
+    if (response && response.data && response.data.length > 0) {
       // Filtrer côté client les témoignages publiés et exclure le test
-      const validTestimonials = response.filter(testimonial => 
+      const validTestimonials = response.data.filter(testimonial => 
         testimonial.published && 
         testimonial.name !== 'Paul Bugeon' &&
         testimonial.service !== 'Test'
@@ -550,7 +570,7 @@ const loadTestimonials = async () => {
         
         // Charger les témoignages Strapi
         testimonials.value = mappedTestimonials
-        currentTestimonial.value = 0 // Reset à la première position
+        currentPage.value = 0 // Reset à la première page
         
         console.log('Témoignages Strapi chargés avec succès:', mappedTestimonials.length)
         console.log('Témoignages actuels:', testimonials.value.map(t => t.name))

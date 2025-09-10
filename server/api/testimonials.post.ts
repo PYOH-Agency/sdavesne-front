@@ -6,6 +6,15 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
     console.log('Body reçu:', body)
     
+    // Validation des données requises
+    if (!body.name || !body.content) {
+      return {
+        success: false,
+        message: 'Nom et contenu du témoignage sont requis',
+        error: 'Données manquantes'
+      }
+    }
+    
     // URL Strapi hardcodée pour forcer la production
     const strapiUrl = 'https://abundant-horse-f9e91a1796.strapiapp.com'
     console.log('URL Strapi utilisée (FORCÉE vers production):', strapiUrl)
@@ -17,9 +26,8 @@ export default defineEventHandler(async (event) => {
         content: body.content,
         service: body.service || 'Patient',
         rating: body.rating || 5,
-        published: true, // Publier directement
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        published: true // Publier directement
+        // Ne pas inclure createdAt et updatedAt - Strapi les gère automatiquement
       }
     }
     
@@ -56,6 +64,18 @@ export default defineEventHandler(async (event) => {
       headers: {
         'Content-Type': 'application/json'
       }
+    }).catch(async (fetchError: any) => {
+      // Essayer de récupérer plus de détails sur l'erreur
+      let errorDetails = fetchError.message
+      if (fetchError.data) {
+        try {
+          const errorData = await fetchError.data.text()
+          errorDetails = errorData
+        } catch (e) {
+          errorDetails = fetchError.data
+        }
+      }
+      throw new Error(`Strapi Error: ${errorDetails}`)
     })
     
     console.log('✅ Témoignage créé dans Strapi PRODUCTION:', response)
