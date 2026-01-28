@@ -112,8 +112,8 @@
           </div>
 
           <!-- Informations importantes -->
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p class="text-sm text-blue-800">
+          <div class="bg-tertiary-50 border border-tertiary-200 rounded-lg p-4">
+            <p class="text-sm text-secondary">
               <strong>Important :</strong> Votre carte sera enregistrée mais <strong>ne sera pas débitée</strong> maintenant. 
               Le paiement sera effectué après votre rendez-vous.
             </p>
