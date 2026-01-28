@@ -87,7 +87,7 @@
                   v-if="booking.paymentStatus === 'setup_complete' && booking.status === 'confirmed'"
                   @click="chargePayment(booking.id)"
                   :disabled="charging === booking.id"
-                  class="text-emerald-600 hover:text-emerald-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="text-primary hover:text-primary-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {{ charging === booking.id ? 'Chargement...' : 'Charger le paiement' }}
                 </button>
@@ -168,7 +168,7 @@ const formatAmount = (amount: number, currency: string = 'eur') => {
 const getStatusClass = (status: string) => {
   const classes = {
     pending_payment: 'bg-yellow-100 text-yellow-800',
-    payment_captured: 'bg-blue-100 text-blue-800',
+    payment_captured: 'bg-tertiary-100 text-tertiary-800',
     confirmed: 'bg-green-100 text-green-800',
     completed: 'bg-gray-100 text-gray-800',
     cancelled: 'bg-red-100 text-red-800',
@@ -191,7 +191,7 @@ const getStatusLabel = (status: string) => {
 
 const getPaymentStatusClass = (status: string) => {
   const classes = {
-    setup_complete: 'bg-blue-100 text-blue-800',
+    setup_complete: 'bg-tertiary-100 text-tertiary-800',
     pending: 'bg-yellow-100 text-yellow-800',
     paid: 'bg-green-100 text-green-800',
     failed: 'bg-red-100 text-red-800',

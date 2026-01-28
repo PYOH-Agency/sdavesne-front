@@ -58,7 +58,7 @@
           <div class="mt-12 text-center">
             <NuxtLink
               to="/blog"
-              class="inline-flex items-center bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              class="inline-flex items-center bg-gradient-primary text-gray-900 px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -79,7 +79,7 @@
           <p class="text-gray-600 mb-6">L'article que vous recherchez n'existe pas ou a été supprimé.</p>
           <NuxtLink
             to="/blog"
-            class="inline-flex items-center bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300"
+            class="inline-flex items-center bg-gradient-primary text-gray-900 px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-all duration-300"
           >
             Retour au blog
           </NuxtLink>
@@ -233,7 +233,7 @@ onMounted(() => {
 }
 
 .prose blockquote {
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid #0596DE;
   padding-left: 1em;
   margin: 2em 0;
   font-style: italic;

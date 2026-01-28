@@ -123,7 +123,7 @@
           <button
             type="submit"
             :disabled="submitting"
-            class="w-full bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full bg-gradient-primary text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {{ submitting ? 'Traitement...' : 'Continuer vers le paiement' }}
           </button>

@@ -15,7 +15,7 @@
           v-for="product in products"
           :key="product.calEventType"
           class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-8 cursor-pointer border-2"
-          :class="selectedProduct?.calEventType === product.calEventType ? 'border-blue-600' : 'border-transparent'"
+          :class="selectedProduct?.calEventType === product.calEventType ? 'border-primary' : 'border-transparent'"
           @click="selectedProduct = product"
         >
           <div class="text-center">
@@ -32,7 +32,7 @@
             <div
               class="w-6 h-6 rounded-full border-2 mx-auto transition-all"
               :class="selectedProduct?.calEventType === product.calEventType 
-                ? 'bg-blue-600 border-blue-600' 
+                ? 'bg-primary border-primary' 
                 : 'border-gray-300'"
             >
               <svg
@@ -62,7 +62,7 @@
                 v-model="form.firstName"
                 type="text"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="Votre prénom"
               />
             </div>
@@ -75,7 +75,7 @@
                 v-model="form.lastName"
                 type="text"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="Votre nom"
               />
             </div>
@@ -120,14 +120,14 @@
               </div>
               <div class="flex justify-between text-lg font-bold pt-2 border-t border-gray-200">
                 <span>Total :</span>
-                <span class="text-blue-600">{{ getProductPrice(selectedProduct) }}</span>
+                <span class="text-primary">{{ getProductPrice(selectedProduct) }}</span>
               </div>
             </div>
           </div>
 
           <!-- Informations importantes -->
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p class="text-sm text-blue-800">
+          <div class="bg-tertiary-50 border border-tertiary-200 rounded-lg p-4">
+            <p class="text-sm text-secondary">
               <strong>Important :</strong> Votre carte sera enregistrée mais <strong>ne sera pas débitée</strong> maintenant. 
               Le paiement sera effectué après votre rendez-vous.
             </p>
@@ -137,7 +137,7 @@
           <button
             type="submit"
             :disabled="submitting"
-            class="w-full bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full bg-gradient-primary text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {{ submitting ? 'Traitement...' : 'Continuer vers le paiement' }}
           </button>

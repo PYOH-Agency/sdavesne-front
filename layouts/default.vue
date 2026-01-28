@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+  <div class="min-h-screen bg-gradient-hero">
     <!-- Header de navigation - Composant local -->
     <Header
       title="Sophie Davesne"

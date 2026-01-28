@@ -4,7 +4,7 @@
       <div class="flex justify-between items-center py-4">
         <!-- Logo/Titre -->
         <div class="flex items-center space-x-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center">
+          <div class="w-12 h-12 bg-gradient-secondary rounded-full flex items-center justify-center">
             <span class="text-white font-bold text-lg">SD</span>
           </div>
           <div>
@@ -19,8 +19,8 @@
             v-for="item in navigation"
             :key="item.path"
             :to="item.path"
-            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-            :class="{ 'text-blue-600': $route.path === item.path }"
+            class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+            :class="{ 'text-primary': $route.path === item.path }"
           >
             {{ item.label }}
           </NuxtLink>
@@ -31,7 +31,7 @@
           <NuxtLink
             v-if="cta?.primary"
             :to="cta.primary.path"
-            class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+            class="bg-gradient-primary text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-colors"
           >
             {{ cta.primary.label }}
           </NuxtLink>
