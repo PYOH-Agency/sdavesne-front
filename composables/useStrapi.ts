@@ -35,9 +35,40 @@ export const useStrapiData = () => {
     }
   }
 
+  // Récupérer les articles de blog
+  const getArticles = async () => {
+    try {
+      const response = await $fetch('/api/articles', {
+        method: 'GET'
+      })
+      return response?.data || []
+    } catch (error) {
+      console.error('Erreur lors de la récupération des articles:', error)
+      return []
+    }
+  }
+
+  // Récupérer un article par son slug
+  const getArticleBySlug = async (slug: string) => {
+    try {
+      const response = await $fetch('/api/articles', {
+        method: 'GET',
+        query: {
+          slug: slug
+        }
+      })
+      return response?.data?.[0] || null
+    } catch (error) {
+      console.error('Erreur lors de la récupération de l\'article:', error)
+      return null
+    }
+  }
+
   return {
     getServices,
     getFeaturedServices,
-    getTestimonials
+    getTestimonials,
+    getArticles,
+    getArticleBySlug
   }
 }

@@ -114,6 +114,7 @@ const props = defineProps({
       { path: '/', label: 'Accueil' },
       { path: '/a-propos', label: 'À propos' },
       { path: '/services', label: 'Services' },
+      { path: '/blog', label: 'Blog' },
       { path: '/contact', label: 'Contact' }
     ]
   },
