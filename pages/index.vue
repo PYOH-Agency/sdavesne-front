@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50">
+  <div class="min-h-screen bg-gradient-hero">
     <!-- Hero Section -->
     <section class="relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -7,7 +7,7 @@
           <div class="text-center lg:text-left animate-fade-in-up">
             <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight animate-fade-in-up animation-delay-200">
               Retrouvez votre 
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 animate-gradient-text">bien-être</span>
+              <span class="text-transparent bg-clip-text bg-gradient-mixed animate-gradient-text">bien-être</span>
               intérieur
             </h1>
             <p class="text-xl text-gray-600 mb-8 leading-relaxed animate-fade-in-up animation-delay-400">
@@ -17,13 +17,13 @@
             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up animation-delay-600">
               <button 
                 @click="scrollToBooking"
-                class="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
+                class="bg-gradient-primary text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
               >
                 Réserver une consultation
               </button>
               <NuxtLink 
                 to="/a-propos"
-                class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-50 transition-all duration-300 hover:shadow-md transform hover:-translate-y-0.5"
+                class="border-2 border-secondary text-secondary px-8 py-4 rounded-xl text-lg font-semibold hover:bg-secondary/10 transition-all duration-300 hover:shadow-md transform hover:-translate-y-0.5"
               >
                 En savoir plus
               </NuxtLink>
@@ -31,9 +31,9 @@
           </div>
           
           <div class="relative animate-fade-in-right animation-delay-300">
-            <div class="w-full h-96 bg-gradient-to-br from-blue-100 to-emerald-100 rounded-3xl flex items-center justify-center shadow-2xl border border-blue-200 hover:shadow-3xl transition-all duration-500 transform hover:scale-105">
+            <div class="w-full h-96 bg-gradient-to-br from-tertiary-50 to-primary-50 rounded-3xl flex items-center justify-center shadow-2xl border border-tertiary-200 hover:shadow-3xl transition-all duration-500 transform hover:scale-105">
               <div class="text-center animate-fade-in animation-delay-800">
-                <div class="w-28 h-28 bg-gradient-to-br from-blue-600 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg animate-pulse-soft">
+                <div class="w-28 h-28 bg-gradient-mixed rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg animate-pulse-soft">
                   <svg class="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                   </svg>
@@ -59,7 +59,7 @@
 
         <!-- Chargement services -->
         <div v-if="pendingServices" class="text-center py-12">
-          <div class="inline-flex items-center px-6 py-3 bg-blue-50 text-blue-600 rounded-lg text-sm">
+          <div class="inline-flex items-center px-6 py-3 bg-primary-50 text-primary-600 rounded-lg text-sm">
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -89,7 +89,7 @@
           </div>
 
             <!-- Contenu -->
-            <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">{{ service.attributes?.title || service.title }}</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors duration-300">{{ service.attributes?.title || service.title }}</h3>
             <p class="text-gray-600 mb-4 group-hover:text-gray-700 transition-colors duration-300">{{ service.attributes?.description || service.description }}</p>
             
             <!-- Badge -->
@@ -116,7 +116,7 @@
         <div class="text-center mt-12 animate-fade-in-up animation-delay-1400">
           <NuxtLink 
             to="/services" 
-            class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-md px-6 py-3 rounded-lg hover:bg-blue-50"
+            class="inline-flex items-center text-primary font-semibold hover:text-primary-600 transition-all duration-300 transform hover:scale-105 hover:shadow-md px-6 py-3 rounded-lg hover:bg-primary-50"
           >
             Découvrir tous mes services
             <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@
 
         <!-- Chargement témoignages -->
         <div v-if="loadingTestimonials" class="text-center py-12 animate-fade-in-up animation-delay-400">
-          <div class="inline-flex items-center px-6 py-3 bg-blue-50 text-blue-600 rounded-lg text-sm">
+          <div class="inline-flex items-center px-6 py-3 bg-primary-50 text-primary-600 rounded-lg text-sm">
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -153,7 +153,7 @@
           <!-- Navigation gauche -->
           <button 
             @click="previousPage"
-            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-blue-600 hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-primary hover:shadow-xl transition-all duration-300 transform hover:scale-110"
             :disabled="totalPages <= 1"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,7 +186,7 @@
                   </blockquote>
                   
                   <div class="flex items-center">
-                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
+                    <div class="w-10 h-10 bg-gradient-mixed rounded-full flex items-center justify-center text-gray-900 font-bold text-sm mr-3">
                       {{ testimonial.name.charAt(0).toUpperCase() }}
                     </div>
                     <div>
@@ -203,7 +203,7 @@
           <!-- Navigation droite -->
           <button 
             @click="nextPage"
-            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-blue-600 hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-primary hover:shadow-xl transition-all duration-300 transform hover:scale-110"
             :disabled="totalPages <= 1"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -218,7 +218,7 @@
               :key="`dot-${index}`"
               @click="currentPage = index"
               class="w-3 h-3 rounded-full transition-all duration-300"
-              :class="currentPage === index ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'"
+              :class="currentPage === index ? 'bg-primary' : 'bg-gray-300 hover:bg-gray-400'"
             ></button>
           </div>
         </div>
@@ -238,7 +238,7 @@
         <div class="text-center animate-fade-in-up animation-delay-600">
           <button 
             @click="showTestimonialForm = true"
-            class="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            class="bg-gradient-primary text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Laisser un témoignage
           </button>
@@ -270,7 +270,7 @@
                   v-model="testimonialForm.name"
                   type="text" 
                   required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
                   placeholder="Prénom ou initiales"
                 >
               </div>
@@ -280,7 +280,7 @@
                 <input 
                   v-model="testimonialForm.service"
                   type="text"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
                   placeholder="Ex: Arrêt du tabac, Gestion du stress..."
                 >
               </div>
@@ -323,7 +323,7 @@
                 <button 
                   type="submit"
                   :disabled="submittingTestimonial"
-                  class="flex-1 bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-emerald-700 transition-all duration-200 disabled:opacity-50"
+                  class="flex-1 bg-gradient-primary text-gray-900 px-6 py-3 rounded-lg hover:opacity-90 transition-all duration-200 disabled:opacity-50"
                 >
                   {{ submittingTestimonial ? 'Envoi...' : 'Publier' }}
                 </button>
@@ -335,7 +335,7 @@
     </section>
 
     <!-- Booking Section -->
-    <section id="booking" class="bg-gradient-to-br from-blue-50 to-emerald-50 py-20 border-t border-blue-100">
+    <section id="booking" class="bg-gradient-hero py-20 border-t border-tertiary-200">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl font-bold text-gray-900 mb-6 animate-fade-in-up animation-delay-200">Prêt(e) à commencer votre transformation ?</h2>
         <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-400">
@@ -343,7 +343,7 @@
         </p>
         
         <!-- Sélection du type de consultation -->
-        <div v-if="!selectedConsultationType" class="bg-white rounded-2xl shadow-xl border border-blue-200 overflow-hidden mb-8 p-8">
+        <div v-if="!selectedConsultationType" class="bg-white rounded-2xl shadow-xl border border-tertiary-200 overflow-hidden mb-8 p-8">
           <h3 class="text-2xl font-bold text-gray-900 mb-6">Choisissez votre type de consultation</h3>
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -351,24 +351,24 @@
               v-for="product in consultationTypes"
               :key="product.calEventType"
               @click="selectConsultationType(product)"
-              class="bg-gradient-to-br from-blue-50 to-emerald-50 rounded-xl p-6 cursor-pointer border-2 border-transparent hover:border-blue-400 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg"
+              class="bg-gradient-to-br from-tertiary-50 to-primary-50 rounded-xl p-6 cursor-pointer border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg"
             >
               <h4 class="text-xl font-bold text-gray-900 mb-2">{{ product.label }}</h4>
               <p v-if="product.description" class="text-sm text-gray-600 mb-4">{{ product.description }}</p>
-              <div class="text-2xl font-bold text-blue-600 mb-2">{{ getProductPrice(product) }}</div>
+              <div class="text-2xl font-bold text-primary mb-2">{{ getProductPrice(product) }}</div>
               <div v-if="product.duration" class="text-sm text-gray-500">{{ product.duration }} minutes</div>
             </div>
           </div>
 
           <!-- Informations importantes sur le paiement -->
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-left">
-            <h4 class="font-semibold text-blue-900 mb-3 flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="bg-tertiary-50 border border-tertiary-200 rounded-lg p-6 text-left">
+            <h4 class="font-semibold text-secondary mb-3 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
               Informations importantes
             </h4>
-            <ul class="space-y-2 text-sm text-blue-800">
+            <ul class="space-y-2 text-sm text-secondary">
               <li class="flex items-start">
                 <span class="mr-2">•</span>
                 <span><strong>Empreinte bancaire uniquement</strong> : Votre carte sera enregistrée mais <strong>ne sera pas débitée</strong> lors de la réservation</span>
@@ -390,16 +390,16 @@
         </div>
 
         <!-- Calendrier inline Cal.com -->
-        <div v-else class="bg-white rounded-2xl shadow-xl border border-blue-200 overflow-hidden mb-8">
-          <div class="p-6 bg-gradient-to-r from-blue-600 to-emerald-600">
+        <div v-else class="bg-white rounded-2xl shadow-xl border border-tertiary-200 overflow-hidden mb-8">
+          <div class="p-6 bg-gradient-tertiary">
             <div class="flex items-center justify-between">
               <div>
                 <h3 class="text-xl font-semibold text-white mb-2">Calendrier de consultation</h3>
-                <p class="text-blue-100">{{ selectedConsultationType.label }} - Sélectionnez votre horaire</p>
+                <p class="text-white/90">{{ selectedConsultationType.label }} - Sélectionnez votre horaire</p>
               </div>
               <button
                 @click="selectedConsultationType = null"
-                class="text-white hover:text-blue-200 transition-colors"
+                class="text-white hover:text-white/80 transition-colors"
                 title="Changer de type de consultation"
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -411,12 +411,12 @@
           
           <!-- Container pour le calendrier Cal.com -->
           <div class="p-6">
-            <div 
-              :id="`cal-inline-widget-${selectedConsultationType.calEventType}`" 
-              class="min-h-[600px] bg-gray-50 rounded-xl flex items-center justify-center"
-            >
-              <div class="text-center">
-                <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div 
+                :id="`cal-inline-widget-${selectedConsultationType.calEventType}`" 
+                class="min-h-[600px] bg-gray-50 rounded-xl flex items-center justify-center"
+              >
+                <div class="text-center">
+                  <div class="w-12 h-12 bg-gradient-mixed rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg class="w-6 h-6 text-white animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -431,19 +431,19 @@
           <div class="px-6 pb-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div class="flex items-center space-x-2 text-gray-600">
-                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span>{{ selectedConsultationType.duration || 60 }} minutes</span>
               </div>
               <div class="flex items-center space-x-2 text-gray-600">
-                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span>Confirmation immédiate</span>
               </div>
               <div class="flex items-center space-x-2 text-gray-600">
-                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span>Annulation gratuite 48h avant</span>
@@ -457,7 +457,7 @@
           <p class="text-gray-600 mb-4">Vous préférez me contacter directement ?</p>
           <NuxtLink 
             to="/contact"
-            class="inline-flex items-center border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300"
+            class="inline-flex items-center border-2 border-secondary text-secondary px-6 py-3 rounded-xl font-semibold hover:bg-secondary/10 transition-all duration-300"
           >
             Me contacter par email
           </NuxtLink>
@@ -701,27 +701,27 @@ const submitTestimonial = async () => {
 // Fonctions pour les styles et icônes
 const getServiceClasses = (color: string) => {
   const classes = {
-    blue: 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200',
-    emerald: 'bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200',
-    purple: 'bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200'
+    blue: 'bg-gradient-to-br from-tertiary-50 to-tertiary-100 border-tertiary-200',
+    emerald: 'bg-gradient-to-br from-primary-50 to-primary-100 border-primary-200',
+    purple: 'bg-gradient-to-br from-secondary-50 to-secondary-100 border-secondary-200'
   }
   return classes[color] || classes.blue
 }
 
 const getIconClasses = (color: string) => {
   const classes = {
-    blue: 'bg-gradient-to-br from-blue-600 to-blue-700',
-    emerald: 'bg-gradient-to-br from-emerald-600 to-emerald-700',
-    purple: 'bg-gradient-to-br from-purple-600 to-purple-700'
+    blue: 'bg-gradient-tertiary',
+    emerald: 'bg-gradient-primary',
+    purple: 'bg-gradient-secondary'
   }
   return classes[color] || classes.blue
 }
 
 const getTextClasses = (color: string) => {
   const classes = {
-    blue: 'text-blue-600',
-    emerald: 'text-emerald-600',
-    purple: 'text-purple-600'
+    blue: 'text-tertiary',
+    emerald: 'text-primary',
+    purple: 'text-secondary'
   }
   return classes[color] || classes.blue
 }

@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50">
+  <div class="min-h-screen bg-gradient-hero">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-16">
+    <section class="bg-gradient-tertiary text-white py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">Blog - Hypnothérapie</h1>
-        <p class="text-xl text-blue-100 max-w-3xl">
+        <p class="text-xl text-white/90 max-w-3xl">
           Découvrez des articles sur l'hypnose thérapeutique, le bien-être et la transformation personnelle
         </p>
       </div>
@@ -15,7 +15,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Chargement -->
         <div v-if="loading" class="text-center py-12">
-          <div class="inline-flex items-center px-6 py-3 bg-blue-50 text-blue-600 rounded-lg text-sm">
+          <div class="inline-flex items-center px-6 py-3 bg-primary-50 text-primary-600 rounded-lg text-sm">
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -33,7 +33,7 @@
           >
             <!-- Image -->
             <NuxtLink :to="`/blog/${article.attributes?.slug || article.slug}`" class="block">
-              <div class="relative h-64 overflow-hidden bg-gradient-to-br from-blue-100 to-emerald-100">
+              <div class="relative h-64 overflow-hidden bg-gradient-to-br from-tertiary-100 to-primary-100">
                 <img
                   v-if="article.attributes?.image?.data?.attributes?.url || article.image?.url"
                   :src="getImageUrl(article)"

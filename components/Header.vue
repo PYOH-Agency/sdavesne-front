@@ -14,7 +14,7 @@
           </div>
           <div>
             <h1 class="text-2xl font-bold text-gray-900">{{ title }}</h1>
-            <p class="text-sm font-medium text-emerald-600">{{ subtitle }}</p>
+            <p class="text-sm font-medium text-secondary">{{ subtitle }}</p>
           </div>
         </NuxtLink>
         
@@ -24,8 +24,8 @@
             v-for="item in navigation" 
             :key="item.path"
             :to="item.path"
-            class="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
-            :class="{ 'text-emerald-600': $route.path === item.path }"
+            class="text-gray-700 hover:text-primary font-medium transition-colors"
+            :class="{ 'text-primary': $route.path === item.path }"
           >
             {{ item.label }}
           </NuxtLink>
@@ -36,7 +36,7 @@
           <NuxtLink 
             v-if="cta.secondary"
             :to="cta.secondary.path"
-            class="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
+            class="text-gray-700 hover:text-primary font-medium transition-colors"
           >
             {{ cta.secondary.label }}
           </NuxtLink>
@@ -44,7 +44,7 @@
           <NuxtLink 
             v-if="cta.primary"
             :to="cta.primary.path"
-            class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white px-6 py-3 rounded-xl hover:from-emerald-700 hover:to-emerald-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            class="bg-gradient-primary text-gray-900 px-6 py-3 rounded-xl hover:opacity-90 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             {{ cta.primary.label }}
           </NuxtLink>
@@ -54,7 +54,7 @@
         <div class="md:hidden">
           <button
             @click="toggleMobileMenu"
-            class="text-gray-700 hover:text-emerald-600 transition-colors"
+            class="text-gray-700 hover:text-primary transition-colors"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -71,8 +71,8 @@
             :key="item.path"
             :to="item.path"
             @click="closeMobileMenu"
-            class="text-gray-700 hover:text-emerald-600 font-medium transition-colors py-2"
-            :class="{ 'text-emerald-600': $route.path === item.path }"
+            class="text-gray-700 hover:text-primary font-medium transition-colors py-2"
+            :class="{ 'text-primary': $route.path === item.path }"
           >
             {{ item.label }}
           </NuxtLink>
@@ -80,7 +80,7 @@
             <NuxtLink 
               :to="cta.primary.path"
               @click="closeMobileMenu"
-              class="block bg-gradient-to-r from-emerald-600 to-emerald-700 text-white px-6 py-3 rounded-xl text-center font-semibold"
+              class="block bg-gradient-primary text-gray-900 px-6 py-3 rounded-xl text-center font-semibold"
             >
               {{ cta.primary.label }}
             </NuxtLink>
