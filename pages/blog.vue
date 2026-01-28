@@ -33,7 +33,7 @@
           >
             <!-- Image -->
             <NuxtLink :to="`/blog/${article.attributes?.slug || article.slug}`" class="block">
-              <div class="relative h-64 overflow-hidden bg-gradient-to-br from-tertiary-100 to-primary-100">
+              <div class="relative h-64 overflow-hidden bg-gradient-to-br from-blue-100 to-emerald-100">
                 <img
                   v-if="article.attributes?.image?.data?.attributes?.url || article.image?.url"
                   :src="getImageUrl(article)"
@@ -51,7 +51,7 @@
             <!-- Contenu -->
             <div class="p-6">
               <NuxtLink :to="`/blog/${article.attributes?.slug || article.slug}`">
-                <h2 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                <h2 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors duration-300">
                   {{ article.attributes?.title || article.title }}
                 </h2>
               </NuxtLink>
@@ -66,7 +66,7 @@
 
               <NuxtLink
                 :to="`/blog/${article.attributes?.slug || article.slug}`"
-                class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300"
+                class="inline-flex items-center text-primary font-semibold hover:text-primary-600 transition-colors duration-300"
               >
                 Lire la suite
                 <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
