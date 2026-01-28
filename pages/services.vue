@@ -98,7 +98,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-gradient-to-br from-blue-50 to-emerald-50 py-20 border-t border-blue-100">
+    <section class="bg-gradient-hero py-20 border-t border-tertiary-200">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl font-bold text-gray-900 mb-6">Prêt(e) à commencer votre transformation ?</h2>
         <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -108,14 +108,14 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <NuxtLink 
             to="/#booking"
-            class="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            class="bg-gradient-primary text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Réserver une consultation
           </NuxtLink>
           
           <NuxtLink 
             to="/contact"
-            class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-50 transition-all duration-300"
+            class="border-2 border-secondary text-secondary px-8 py-4 rounded-xl text-lg font-semibold hover:bg-secondary/10 transition-all duration-300"
           >
             Me contacter
           </NuxtLink>
@@ -172,7 +172,7 @@ const loadStrapiServices = async () => {
           title: service.title,
           description: service.description,
           icon: service.icon?.trim() || 'heart',
-          color: service.color?.trim() || 'blue',
+          color: service.color?.trim() || 'tertiary',
           duration: service.duration,
           price: service.price || '75€',
           featured: service.featured
@@ -223,9 +223,9 @@ const getServiceIcon = (iconName: string) => {
 
 const getServiceColorClasses = (color: string) => {
   const colors = {
-    'blue': 'hover:border-blue-200',
-    'emerald': 'hover:border-emerald-200', 
-    'purple': 'hover:border-purple-200',
+    'blue': 'hover:border-tertiary-200',
+    'emerald': 'hover:border-primary-200', 
+    'purple': 'hover:border-secondary-200',
     'orange': 'hover:border-orange-200'
   }
   return colors[color] || colors.blue
@@ -233,9 +233,9 @@ const getServiceColorClasses = (color: string) => {
 
 const getIconColorClasses = (color: string) => {
   const colors = {
-    'blue': 'bg-gradient-to-br from-blue-600 to-blue-700',
-    'emerald': 'bg-gradient-to-br from-emerald-600 to-emerald-700',
-    'purple': 'bg-gradient-to-br from-purple-600 to-purple-700',
+    'blue': 'bg-gradient-tertiary',
+    'emerald': 'bg-gradient-primary',
+    'purple': 'bg-gradient-secondary',
     'orange': 'bg-gradient-to-br from-orange-600 to-orange-700'
   }
   return colors[color] || colors.blue
@@ -243,9 +243,9 @@ const getIconColorClasses = (color: string) => {
 
 const getTextColorClasses = (color: string) => {
   const colors = {
-    'blue': 'text-blue-600',
-    'emerald': 'text-emerald-600',
-    'purple': 'text-purple-600', 
+    'blue': 'text-tertiary',
+    'emerald': 'text-primary',
+    'purple': 'text-secondary', 
     'orange': 'text-orange-600'
   }
   return colors[color] || colors.blue

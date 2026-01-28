@@ -17,7 +17,7 @@
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Photo professionnelle -->
         <div class="relative">
-          <div class="w-80 h-96 mx-auto bg-gradient-to-br from-blue-200 to-indigo-300 rounded-2xl shadow-2xl flex items-center justify-center">
+          <div class="w-80 h-96 mx-auto bg-gradient-to-br from-tertiary-200 to-tertiary-300 rounded-2xl shadow-2xl flex items-center justify-center">
             <div class="text-center text-gray-600">
               <svg class="w-24 h-24 mx-auto mb-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -30,8 +30,8 @@
 
         <!-- Contenu texte -->
         <div class="space-y-6">
-          <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+          <div class="inline-flex items-center px-4 py-2 bg-tertiary-100 text-tertiary-800 rounded-full text-sm font-medium">
+            <span class="w-2 h-2 bg-tertiary rounded-full mr-2"></span>
             Hypnothérapeute certifiée
           </div>
           
@@ -53,7 +53,7 @@
 
           <!-- Signature manuscrite -->
           <div class="pt-4">
-            <div class="text-2xl text-blue-600">
+            <div class="text-2xl text-secondary">
               Avec bienveillance,<br>
               <span class="text-xl">Sophie Davesne</span>
             </div>
@@ -64,7 +64,7 @@
   </section>
 
   <!-- Section 2: Qu'est-ce que l'hypnothérapie ? -->
-  <section class="py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
+  <section class="py-16 bg-gradient-hero">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-bold text-gray-900 mb-4">
@@ -77,13 +77,13 @@
 
       <div class="grid lg:grid-cols-3 gap-8">
         <!-- Hypnose Ericksonienne -->
-        <div class="lg:col-span-2 bg-white rounded-2xl shadow-xl p-8 border-l-4 border-blue-500">
+        <div class="lg:col-span-2 bg-white rounded-2xl shadow-xl p-8 border-l-4 border-tertiary">
           <h3 class="text-2xl font-bold text-gray-900 mb-4">Hypnose Ericksonienne</h3>
           <p class="text-gray-700 mb-4 leading-relaxed">
             L'hypnose ericksonienne est aujourd'hui l'approche la plus répandue et la plus utilisée. Elle est souple, respectueuse et entièrement personnalisée.
           </p>
-          <div class="bg-blue-50 rounded-lg p-4">
-            <p class="text-blue-800 font-medium">
+          <div class="bg-tertiary-50 rounded-lg p-4">
+            <p class="text-tertiary-800 font-medium">
               Idéale pour la gestion du stress, des phobies, de l'anxiété, des douleurs ou encore pour renforcer la confiance en soi.
             </p>
           </div>
@@ -109,7 +109,7 @@
   <!-- Call-to-action -->
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-2xl p-12 text-white">
+      <div class="bg-gradient-tertiary rounded-2xl shadow-2xl p-12 text-white">
         <h2 class="text-3xl font-bold mb-6">
           Prêt(e) à transformer votre vie ?
         </h2>
@@ -118,7 +118,7 @@
           Vous souhaitez découvrir comment l'hypnose peut vous aider ?
         </p>
         
-        <button class="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
+        <button class="bg-white text-tertiary px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
           Réservez votre séance
         </button>
       </div>

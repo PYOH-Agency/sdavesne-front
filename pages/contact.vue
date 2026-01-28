@@ -25,8 +25,8 @@
             <div class="space-y-6">
               <!-- Localisation -->
               <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 bg-tertiary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -86,7 +86,7 @@
           </div>
 
           <!-- Informations pratiques -->
-          <div class="bg-blue-50 rounded-xl p-6">
+          <div class="bg-tertiary-50 rounded-xl p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">
               Informations pratiques
             </h3>
@@ -118,7 +118,7 @@
                   v-model="form.firstName"
                   type="text"
                   required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                   placeholder="Votre prénom"
                 />
               </div>
@@ -131,7 +131,7 @@
                   v-model="form.lastName"
                   type="text"
                   required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                   placeholder="Votre nom"
                 />
               </div>
@@ -148,7 +148,7 @@
                   v-model="form.email"
                   type="email"
                   required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                   placeholder="votre@email.com"
                 />
               </div>
@@ -160,7 +160,7 @@
                   id="phone"
                   v-model="form.phone"
                   type="tel"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                   placeholder="06 12 34 56 78"
                 />
               </div>
@@ -209,7 +209,7 @@
                 <input
                   v-model="form.preferences.remote"
                   type="checkbox"
-                  class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
                 />
                 <span class="ml-2 text-sm text-gray-700">
                   Je préfère une consultation à distance
@@ -220,7 +220,7 @@
                 <input
                   v-model="form.preferences.newsletter"
                   type="checkbox"
-                  class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
                 />
                 <span class="ml-2 text-sm text-gray-700">
                   Je souhaite recevoir des informations sur l'hypnothérapie
@@ -232,7 +232,7 @@
             <button
               type="submit"
               :disabled="submitting"
-              class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full bg-gradient-primary text-gray-900 py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span v-if="submitting" class="flex items-center justify-center">
                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
@@ -264,7 +264,7 @@
   </section>
 
   <!-- Section CTA -->
-  <section class="py-16 bg-gradient-to-r from-blue-600 to-indigo-600">
+  <section class="py-16 bg-gradient-tertiary">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
       <h2 class="text-3xl font-bold mb-6">
         Prêt(e) à commencer votre transformation ?
@@ -273,10 +273,10 @@
         La première consultation est gratuite et sans engagement
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button class="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
+        <button class="bg-white text-tertiary px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
           Appeler maintenant
         </button>
-        <button class="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-200">
+        <button class="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-tertiary transition-all duration-200">
           Envoyer un email
         </button>
       </div>
