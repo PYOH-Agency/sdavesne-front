@@ -342,55 +342,115 @@
           Réservez votre séance de découverte et faites le premier pas vers un mieux-être durable.
         </p>
         
-                  <!-- Calendrier inline Cal.com -->
-          <div class="bg-white rounded-2xl shadow-xl border border-blue-200 overflow-hidden mb-8">
-            <div class="p-6 bg-gradient-to-r from-blue-600 to-emerald-600">
-              <h3 class="text-xl font-semibold text-white mb-2">Calendrier de consultation</h3>
-              <p class="text-blue-100">Sélectionnez votre horaire préféré pour une séance d'hypnose thérapeutique</p>
+        <!-- Sélection du type de consultation -->
+        <div v-if="!selectedConsultationType" class="bg-white rounded-2xl shadow-xl border border-blue-200 overflow-hidden mb-8 p-8">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">Choisissez votre type de consultation</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div
+              v-for="product in consultationTypes"
+              :key="product.calEventType"
+              @click="selectConsultationType(product)"
+              class="bg-gradient-to-br from-blue-50 to-emerald-50 rounded-xl p-6 cursor-pointer border-2 border-transparent hover:border-blue-400 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg"
+            >
+              <h4 class="text-xl font-bold text-gray-900 mb-2">{{ product.label }}</h4>
+              <p v-if="product.description" class="text-sm text-gray-600 mb-4">{{ product.description }}</p>
+              <div class="text-2xl font-bold text-blue-600 mb-2">{{ getProductPrice(product) }}</div>
+              <div v-if="product.duration" class="text-sm text-gray-500">{{ product.duration }} minutes</div>
             </div>
-            
-            <!-- Container pour le calendrier Cal.com -->
-            <div class="p-6">
-              <div 
-                id="cal-inline-widget" 
-                class="min-h-[600px] bg-gray-50 rounded-xl flex items-center justify-center"
+          </div>
+
+          <!-- Informations importantes sur le paiement -->
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-left">
+            <h4 class="font-semibold text-blue-900 mb-3 flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Informations importantes
+            </h4>
+            <ul class="space-y-2 text-sm text-blue-800">
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                <span><strong>Empreinte bancaire uniquement</strong> : Votre carte sera enregistrée mais <strong>ne sera pas débitée</strong> lors de la réservation</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                <span>Le paiement sera effectué <strong>après votre rendez-vous</strong>, une fois la séance confirmée</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                <span>Vous pouvez <strong>annuler ou modifier</strong> votre rendez-vous jusqu'à <strong>48 heures avant</strong> la date prévue, sans frais</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                <span>En cas d'annulation moins de 48h avant, le paiement sera effectué</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Calendrier inline Cal.com -->
+        <div v-else class="bg-white rounded-2xl shadow-xl border border-blue-200 overflow-hidden mb-8">
+          <div class="p-6 bg-gradient-to-r from-blue-600 to-emerald-600">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-xl font-semibold text-white mb-2">Calendrier de consultation</h3>
+                <p class="text-blue-100">{{ selectedConsultationType.label }} - Sélectionnez votre horaire</p>
+              </div>
+              <button
+                @click="selectedConsultationType = null"
+                class="text-white hover:text-blue-200 transition-colors"
+                title="Changer de type de consultation"
               >
-                <div class="text-center">
-                  <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-6 h-6 text-white animate-spin" fill="none" viewBox="0 0 24 24">
-                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                </div>
-                  <p class="text-gray-600">Chargement du calendrier...</p>
-                </div>
-              </div>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
             </div>
-            
-            <!-- Informations pratiques -->
-            <div class="px-6 pb-6">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <div class="flex items-center space-x-2 text-gray-600">
-                  <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span>Consultation 60 minutes</span>
           </div>
-                <div class="flex items-center space-x-2 text-gray-600">
-                  <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          
+          <!-- Container pour le calendrier Cal.com -->
+          <div class="p-6">
+            <div 
+              :id="`cal-inline-widget-${selectedConsultationType.calEventType}`" 
+              class="min-h-[600px] bg-gray-50 rounded-xl flex items-center justify-center"
+            >
+              <div class="text-center">
+                <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-6 h-6 text-white animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  <span>Confirmation immédiate</span>
                 </div>
-                <div class="flex items-center space-x-2 text-gray-600">
-                  <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span>Rappel automatique</span>
-                </div>
+                <p class="text-gray-600">Chargement du calendrier...</p>
               </div>
             </div>
           </div>
+          
+          <!-- Informations pratiques -->
+          <div class="px-6 pb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div class="flex items-center space-x-2 text-gray-600">
+                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>{{ selectedConsultationType.duration || 60 }} minutes</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-600">
+                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Confirmation immédiate</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-600">
+                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Annulation gratuite 48h avant</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Contact alternatif -->
         <div class="text-center">
@@ -429,14 +489,23 @@ useHead({
 })
 
 // Utilisation des composables
-const { initInlineCalendar } = useCal()
+const { initInlineCalendar, initBookingWithPayment } = useCal()
 
 // Import du composable Strapi
 const { getFeaturedServices, getTestimonials } = useStrapiData()
 
+// Import du mapping Cal.com ↔ Stripe
+import { CAL_STRIPE_MAPPING, type CalStripeMapping } from '~/config/cal-stripe-mapping'
+
 // Services dynamiques depuis Strapi
 const displayedServices = ref([])
 const pendingServices = ref(false)
+
+// Gestion de la réservation avec Stripe
+const consultationTypes = ref(CAL_STRIPE_MAPPING)
+const selectedConsultationType = ref<CalStripeMapping | null>(null)
+const productPrices = ref<Record<string, number>>({})
+const loadingPrices = ref(false)
 
 // Fonction pour charger les services en vedette depuis Strapi
 const loadStrapiFeaturedServices = async () => {
@@ -689,12 +758,93 @@ const scrollToBooking = () => {
   }
 }
 
+// Charger les prix depuis Stripe
+const loadPrices = async () => {
+  loadingPrices.value = true
+  try {
+    const response = await $fetch('/api/stripe/get-prices')
+    if (response.success && response.prices) {
+      response.prices.forEach((price: any) => {
+        productPrices.value[price.id] = price.amount
+      })
+    }
+  } catch (error) {
+    console.error('Erreur chargement prix:', error)
+  } finally {
+    loadingPrices.value = false
+  }
+}
+
+// Obtenir le prix formaté d'un produit
+const getProductPrice = (product: CalStripeMapping) => {
+  const price = productPrices.value[product.stripePriceId]
+  if (price) {
+    return new Intl.NumberFormat('fr-FR', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(price)
+  }
+  return 'Chargement...'
+}
+
+// Sélectionner un type de consultation
+const selectConsultationType = (product: CalStripeMapping) => {
+  selectedConsultationType.value = product
+  
+  // Initialiser le calendrier Cal.com avec l'événement spécifique
+  nextTick(() => {
+    const containerId = `cal-inline-widget-${product.calEventType}`
+    initInlineCalendar(containerId, 'paul-bugeon-el1oht', product.calEventType)
+  })
+}
+
+// Écouter les messages depuis l'iframe Cal.com pour détecter la sélection d'un créneau
+const setupCalMessageListener = () => {
+  if (!process.client) return
+
+  window.addEventListener('message', async (event) => {
+    // Vérifier que le message vient de Cal.com
+    if (event.origin !== 'https://cal.com' && event.origin !== 'https://app.cal.com') {
+      return
+    }
+
+    // Détecter quand un créneau est sélectionné dans Cal.com
+    // Cal.com envoie des messages avec des données de booking
+    if (event.data?.type === 'cal-booking-selected' || event.data?.bookingUid) {
+      const bookingData = event.data
+      
+      if (selectedConsultationType.value) {
+        // Rediriger vers la page de paiement Stripe
+        try {
+          await initBookingWithPayment({
+            calEventType: selectedConsultationType.value.calEventType,
+            priceId: selectedConsultationType.value.stripePriceId,
+            customerEmail: bookingData.email || '',
+            customerName: bookingData.name || '',
+            calBookingId: bookingData.bookingUid
+          })
+        } catch (error) {
+          console.error('Erreur redirection Stripe:', error)
+        }
+      }
+    }
+  })
+}
+
 // Initialiser le calendrier Cal.com inline au montage
 onMounted(() => {
-  nextTick(() => {
-    // Initialiser le calendrier inline
-    initInlineCalendar('cal-inline-widget', 'paul-bugeon-el1oht')
-  })
+  loadPrices()
+  setupCalMessageListener()
+  
+  // Si un type de consultation est déjà sélectionné (via URL par exemple)
+  const urlParams = new URLSearchParams(window.location.search)
+  const eventType = urlParams.get('event')
+  if (eventType) {
+    const product = CAL_STRIPE_MAPPING.find(p => p.calEventType === eventType)
+    if (product) {
+      selectConsultationType(product)
+    }
+  }
 })
 </script>
 

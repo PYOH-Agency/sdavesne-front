@@ -21,9 +21,19 @@ export const useCal = () => {
       // Créer l'iframe Cal.com directement avec l'URL embed
       const calUrl = eventType ? `${calUsername}/${eventType}` : calUsername
       
+      // URL de redirection après sélection d'un créneau (avant finalisation)
+      // Cal.com redirigera vers cette URL avec les paramètres du booking
+      const appUrl = process.env.NUXT_PUBLIC_APP_URL || window.location.origin
+      const redirectUrl = `${appUrl}/booking/payment?event=${eventType || ''}`
+      
+      // Utiliser l'URL embed avec paramètre de redirection personnalisé
+      // Note: Cal.com permet de rediriger vers une URL personnalisée après sélection
+      const embedUrl = `https://cal.com/${calUrl}?embed=true&theme=light&embedType=inline`
+      
       container.innerHTML = `
         <iframe 
-          src="https://cal.com/${calUrl}?embed=true&theme=light" 
+          id="cal-iframe-${containerId}"
+          src="${embedUrl}" 
           width="100%" 
           height="600" 
           frameborder="0"
@@ -63,5 +73,57 @@ export const useCal = () => {
     }
   }
 
-  return { openCalPopup, getCalUrl, initInlineCalendar }
+  /**
+   * Créer une session Stripe Checkout pour capturer la méthode de paiement
+   * puis rediriger vers Cal.com
+   */
+  const initBookingWithPayment = async (options: {
+    // Option 1: Utiliser un produit Stripe via priceId ou calEventType
+    priceId?: string
+    calEventType?: string // Slug de l'événement Cal.com (ex: "premiere-consultation")
+    
+    // Option 2: Utiliser un montant fixe (ancien mode)
+    amount?: number
+    currency?: string
+    
+    // Informations client
+    customerEmail: string
+    customerName: string
+    appointmentDate?: string
+    calBookingId?: string // ID du booking Cal.com (si déjà créé)
+  }) => {
+    try {
+      // Créer la session Stripe
+      const response = await $fetch('/api/stripe/create-session', {
+        method: 'POST',
+        body: {
+          priceId: options.priceId,
+          calEventType: options.calEventType,
+          amount: options.amount,
+          currency: options.currency || 'eur',
+          customerEmail: options.customerEmail,
+          customerName: options.customerName,
+          appointmentDate: options.appointmentDate,
+          calBookingId: options.calBookingId
+        }
+      })
+
+      if (response.success && response.url) {
+        // Rediriger vers Stripe Checkout
+        window.location.href = response.url
+      } else {
+        throw new Error('Erreur lors de la création de la session Stripe')
+      }
+    } catch (error) {
+      console.error('Erreur création session Stripe:', error)
+      throw error
+    }
+  }
+
+  return { 
+    openCalPopup, 
+    getCalUrl, 
+    initInlineCalendar,
+    initBookingWithPayment
+  }
 }
